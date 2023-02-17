@@ -18,18 +18,21 @@
 				const tile = results.tile.data;
 				return tile
 			} catch (e) {
-				document.write(`failed to inference ONNX model: ${e}.`);
+				document.write(`<p>failed to inference ONNX model: ${e}.</p>`);
 				return []
 			}
 		}
 
 		const go = new Go();
 		WebAssembly.instantiateStreaming(fetch("dist/main.wasm"), go.importObject).then((result) => {
+			document.write(`<p>Testing in progress (could take a minute or two)...</p>`);
 			go.run(result.instance);
 		});
 	</script>
 </head>
 
-<body><p>Testing in progress...</p></body>
+<body>
+	<p>Downloading model and libraries (~100MB)</p>
+</body>
 
 </html>
